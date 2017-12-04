@@ -18,7 +18,7 @@ public class Main {
     }
 
     private static void createWindow() {
-        frame = new JFrame("NotePad--");
+        frame = new JFrame("NotePad");
         JPanel mainPanel = new JPanel();
         JPanel middlePanel = new JPanel();
         JPanel bottomPanel = new JPanel();
