@@ -15,27 +15,25 @@ public class Main {
     }
 
     private static void createWindow() {
-        GridLayout windowLayout = new GridLayout(2,1);
-        frame.setLayout(windowLayout);
+        JPanel mainPanel = new JPanel();
         JPanel middlePanel = new JPanel();
         JPanel bottomPanel = new JPanel();
 
-        bottomPanel.setMaximumSize(new Dimension(20,10));
-
-        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-
+        //Main Panel
+        mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.PAGE_AXIS));
 
         //Add Text Area
         middlePanel.add(createTextArea(middlePanel));
-
-        frame.add(middlePanel, BorderLayout.CENTER);
+        mainPanel.add(middlePanel);
 
         //Add Buttons
-        bottomPanel.add(createButton(100, 25, "Save")).setLocation(10, 10);
-        bottomPanel.add(createButton(100, 25, "Close", FunctionConstants.CLOSE)).setLocation(10, 50);
+        bottomPanel.add(createButton(100, 25, "Save"));
+        bottomPanel.add(createButton(100, 25, "Close", FunctionConstants.CLOSE));
+        mainPanel.add(bottomPanel);
 
-        frame.add(bottomPanel);
-
+        //Show Window
+        frame.add(mainPanel);
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setLocationRelativeTo(null);
         frame.pack();
         frame.setVisible(true);
@@ -44,7 +42,8 @@ public class Main {
     private static JScrollPane createTextArea(JPanel panel) {
         panel.setBorder(new TitledBorder(new EtchedBorder(), "Display Area"));
 
-        JTextArea display = new JTextArea ( 16, 58 );
+        JTextArea display = new JTextArea (27, 70);
+        display.setFont(display.getFont().deriveFont(20f));
         display.setEditable(true);
         JScrollPane scroll = new JScrollPane(display);
         scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
