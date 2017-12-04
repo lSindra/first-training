@@ -3,9 +3,8 @@ import Constants.FunctionConstants;
 import javax.swing.*;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
-import java.awt.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.io.*;
-import java.nio.file.Files;
 import java.util.Objects;
 
 public class Main {
@@ -75,26 +74,30 @@ public class Main {
         return button;
     }
 
-    private static File getSaveLocation() {
+    private static String getSaveLocation() {
         JFileChooser chooser = new JFileChooser();
-        chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        FileNameExtensionFilter filter = new FileNameExtensionFilter ( "Text Files" , "txt");
+        chooser.setFileFilter(filter);
         int result = chooser.showSaveDialog(chooser);
 
         if (result == JFileChooser.APPROVE_OPTION) {
-            return chooser.getSelectedFile();
+            return chooser.getSelectedFile().getAbsolutePath();
         } else {
             return null;
         }
     }
 
     private static void saveFile() {
-        BufferedWriter out;
-        try {
-            out = new BufferedWriter(new FileWriter(getSaveLocation()+"/text.txt"));
-            out.write(display.getText());
-            out.close();
-        } catch (IOException e) {
-            e.printStackTrace();
+        String saveLocation = getSaveLocation();
+        if(saveLocation != null) {
+            BufferedWriter out;
+            try {
+                out = new BufferedWriter(new FileWriter(saveLocation));
+                out.write(display.getText());
+                out.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
