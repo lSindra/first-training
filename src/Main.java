@@ -17,8 +17,8 @@ public class Main {
     private static void createWindow() {
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-        createButton(50, 25, 100, 10, "Ok");
-        createButton(50, 25, 10, 50, FunctionConstants.CLOSE, "CLOSE");
+        createButton(100, 25, 100, 10, "Ok");
+        createButton(100, 25, 10, 50, FunctionConstants.CLOSE, "CLOSE");
 
         JLabel textLabel = new JLabel("You'll be able to write down things soon enough",SwingConstants.CENTER);
         textLabel.setPreferredSize(new Dimension(900, 720));
