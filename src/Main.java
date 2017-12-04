@@ -33,4 +33,12 @@ public class Main {
         return b1;
     }
 
+    private static JButton createButton(int width, int heigth, String buttonText) {
+        JButton b1 = new JButton();
+        b1.setSize(width, heigth);
+        b1.setVisible(true);
+        b1.setText(buttonText);
+        return b1;
+    }
+
 }
