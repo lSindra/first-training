@@ -1,6 +1,9 @@
+import Constants.FunctionConstants;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.Objects;
 import java.util.Scanner;
 import java.io.*;
 
@@ -15,7 +18,7 @@ public class Main {
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         createButton(50, 25, 100, 10, "Ok");
-        createButton(50, 25, 10, 50, "Close", "CLOSE");
+        createButton(50, 25, 10, 50, FunctionConstants.CLOSE, "CLOSE");
 
         JLabel textLabel = new JLabel("You'll be able to write down things soon enough",SwingConstants.CENTER);
         textLabel.setPreferredSize(new Dimension(900, 720));
@@ -39,7 +42,9 @@ public class Main {
         button.setSize(width, heigth);
         button.setVisible(true);
         button.setText(buttonText);
-        button.addActionListener(e -> frame.dispose());
+        if(Objects.equals(function, FunctionConstants.CLOSE)) {
+            button.addActionListener(e -> frame.dispose());
+        }
         frame.add(button).setLocation(xPosition, yPosition);
     }
 
