@@ -1,43 +1,66 @@
 import Constants.FunctionConstants;
 
 import javax.swing.*;
+import javax.swing.border.EtchedBorder;
+import javax.swing.border.TitledBorder;
 import java.awt.*;
-import java.awt.event.*;
 import java.util.Objects;
-import java.util.Scanner;
-import java.io.*;
 
 public class Main {
-    public static JFrame frame = new JFrame("NotePad--");
+
+    private static JFrame frame = new JFrame("NotePad--");
 
     public static void main(String[] args) {
         createWindow();
     }
 
     private static void createWindow() {
+        GridLayout windowLayout = new GridLayout(2,1);
+        frame.setLayout(windowLayout);
+        JPanel middlePanel = new JPanel();
+        JPanel bottomPanel = new JPanel();
+
+        bottomPanel.setMaximumSize(new Dimension(20,10));
+
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-        createButton(100, 25, 100, 10, "Ok");
-        createButton(100, 25, 10, 50, FunctionConstants.CLOSE, "CLOSE");
 
-        JLabel textLabel = new JLabel("You'll be able to write down things soon enough",SwingConstants.CENTER);
-        textLabel.setPreferredSize(new Dimension(900, 720));
-        frame.getContentPane().add(textLabel, BorderLayout.CENTER);
+        //Add Text Area
+        middlePanel.add(createTextArea(middlePanel));
+
+        frame.add(middlePanel, BorderLayout.CENTER);
+
+        //Add Buttons
+        bottomPanel.add(createButton(100, 25, "Save")).setLocation(10, 10);
+        bottomPanel.add(createButton(100, 25, "Close", FunctionConstants.CLOSE)).setLocation(10, 50);
+
+        frame.add(bottomPanel);
 
         frame.setLocationRelativeTo(null);
         frame.pack();
         frame.setVisible(true);
     }
 
-    private static void createButton(int width, int heigth, int xPosition, int yPosition, String buttonText) {
+    private static JScrollPane createTextArea(JPanel panel) {
+        panel.setBorder(new TitledBorder(new EtchedBorder(), "Display Area"));
+
+        JTextArea display = new JTextArea ( 16, 58 );
+        display.setEditable(true);
+        JScrollPane scroll = new JScrollPane(display);
+        scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+
+        return scroll;
+    }
+
+    private static JButton createButton(int width, int heigth, String buttonText) {
         JButton button = new JButton();
         button.setSize(width, heigth);
         button.setVisible(true);
         button.setText(buttonText);
-        frame.add(button).setLocation(xPosition, yPosition);
+        return button;
     }
 
-    private static void createButton(int width, int heigth, int xPosition, int yPosition, String buttonText, String function) {
+    private static JButton createButton(int width, int heigth, String buttonText, String function) {
         JButton button = new JButton();
         button.setSize(width, heigth);
         button.setVisible(true);
@@ -45,7 +68,7 @@ public class Main {
         if(Objects.equals(function, FunctionConstants.CLOSE)) {
             button.addActionListener(e -> frame.dispose());
         }
-        frame.add(button).setLocation(xPosition, yPosition);
+        return button;
     }
 
 
