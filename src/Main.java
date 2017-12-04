@@ -5,16 +5,17 @@ import java.util.Scanner;
 import java.io.*;
 
 public class Main {
+    public static JFrame frame = new JFrame("NotePad--");
+
     public static void main(String[] args) {
         createWindow();
     }
 
     private static void createWindow() {
-
-        JFrame frame = new JFrame("NotePad--");
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-        frame.add(createButton(50, 25, "oi"));
+        createButton(50, 25, 100, 10, "Ok");
+        createButton(50, 25, 10, 50, "Close", "CLOSE");
 
         JLabel textLabel = new JLabel("You'll be able to write down things soon enough",SwingConstants.CENTER);
         textLabel.setPreferredSize(new Dimension(900, 720));
@@ -25,21 +26,21 @@ public class Main {
         frame.setVisible(true);
     }
 
-    private static JButton createButton(int width, int heigth, String buttonText) {
-        JButton b1 = new JButton();
-        b1.setSize(width, heigth);
-        b1.setVisible(true);
-        b1.setText(buttonText);
-        return b1;
+    private static void createButton(int width, int heigth, int xPosition, int yPosition, String buttonText) {
+        JButton button = new JButton();
+        button.setSize(width, heigth);
+        button.setVisible(true);
+        button.setText(buttonText);
+        frame.add(button).setLocation(xPosition, yPosition);
     }
 
-    private JButton createButton(int width, int heigth, String buttonText, String function) {
-        JButton b1 = new JButton();
-        b1.setSize(width, heigth);
-        b1.setVisible(true);
-        b1.setText(buttonText);
-        b1.addActionListener(e -> this.dispose());
-        return b1;
+    private static void createButton(int width, int heigth, int xPosition, int yPosition, String buttonText, String function) {
+        JButton button = new JButton();
+        button.setSize(width, heigth);
+        button.setVisible(true);
+        button.setText(buttonText);
+        button.addActionListener(e -> frame.dispose());
+        frame.add(button).setLocation(xPosition, yPosition);
     }
 
 
