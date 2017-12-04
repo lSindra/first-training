@@ -6,6 +6,7 @@ import javax.swing.border.TitledBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.io.*;
 import java.util.Objects;
+import java.util.Scanner;
 
 public class Main {
 
@@ -30,6 +31,7 @@ public class Main {
         mainPanel.add(middlePanel);
 
         //Add Buttons
+        bottomPanel.add(createButton(100, 25, "Load", FunctionConstants.LOAD));
         bottomPanel.add(createButton(100, 25, "Save", FunctionConstants.SAVE));
         bottomPanel.add(createButton(100, 25, "Close", FunctionConstants.CLOSE));
         mainPanel.add(bottomPanel);
@@ -70,11 +72,13 @@ public class Main {
             button.addActionListener(e -> frame.dispose());
         } else if(Objects.equals(function, FunctionConstants.SAVE)) {
             button.addActionListener(e -> saveFile());
+        } else if(Objects.equals(function, FunctionConstants.LOAD)) {
+            button.addActionListener(e -> loadFile());
         }
         return button;
     }
 
-    private static String getSaveLocation() {
+    private static String getFileLocation() {
         JFileChooser chooser = new JFileChooser();
         FileNameExtensionFilter filter = new FileNameExtensionFilter ( "Text Files" , "txt");
         chooser.setFileFilter(filter);
@@ -88,7 +92,7 @@ public class Main {
     }
 
     private static void saveFile() {
-        String saveLocation = getSaveLocation();
+        String saveLocation = getFileLocation();
         if(saveLocation != null) {
             BufferedWriter out;
             try {
@@ -101,4 +105,17 @@ public class Main {
         }
     }
 
+    private static void loadFile() {
+        String loadLocation = getFileLocation();
+        if(loadLocation != null) {
+            try {
+                display.setText("");
+                Scanner scan = new Scanner(new FileReader(loadLocation));
+                while (scan.hasNext())
+                    display.append(scan.nextLine() + "\n");
+            } catch (Exception ex) {
+                System.out.println(ex.getMessage());
+            }
+        }
+    }
 }
